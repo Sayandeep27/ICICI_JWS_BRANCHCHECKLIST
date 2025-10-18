@@ -18,7 +18,7 @@ public class AESUtil {
 
     private byte[] key;
 
-    private static final int IV_SIZE = 12; // for GCM
+    private static final int IV_SIZE = 12; // GCM IV size
     private static final int TAG_LENGTH_BIT = 128;
 
     @PostConstruct

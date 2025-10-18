@@ -1,13 +1,19 @@
 package com.example.branchchecklist.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 
-@Document("branches")
+@Entity
+@Table(name = "branches")
 public class Branch {
+
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(name = "BranchName")   // ✅ match your SQL column
     private String branchName;
+
+    @Column(name = "SolId")        // ✅ match your SQL column
     private String solId;
 
     public Branch() {}
@@ -17,12 +23,27 @@ public class Branch {
         this.solId = solId;
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public Integer getId() {
+        return id;
+    }
 
-    public String getBranchName() { return branchName; }
-    public void setBranchName(String branchName) { this.branchName = branchName; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public String getSolId() { return solId; }
-    public void setSolId(String solId) { this.solId = solId; }
+    public String getBranchName() {
+        return branchName;
+    }
+
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
+    }
+
+    public String getSolId() {
+        return solId;
+    }
+
+    public void setSolId(String solId) {
+        this.solId = solId;
+    }
 }

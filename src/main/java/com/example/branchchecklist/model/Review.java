@@ -1,86 +1,60 @@
 package com.example.branchchecklist.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
-@Document(collection = "reviews")
+@Entity
+@Table(name = "review")
 public class Review {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    // Branch details (auto-linked)
-    private String branchId;
-    private String branchName;
-    private String solId;
+    @Column(name = "BranchId")
+    private Integer branchId;  // ✅ Integer, not String
 
-    // Checklist details
-    private String section;
-    private String category;
-    private String subItem;
+    @Column(name = "ReviewedBy")
+    private String reviewedBy;
 
-    // Review content
+    @Column(name = "Remarks")
     private String remarks;
-    private String photoBase64;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "Status")
+    private String status;
 
-    public Review() {
+    public Review() {}
+
+    // Constructor
+    public Review(Integer branchId, String reviewedBy, String remarks, String status) {
+        this.branchId = branchId;
+        this.reviewedBy = reviewedBy;
+        this.remarks = remarks;
+        this.status = status;
     }
 
-    // --- Getters and Setters ---
-
-    public String getId() {
+    // Getters & Setters
+    public Integer getId() {
         return id;
     }
 
-    public String getBranchId() {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(String branchId) {
+    public void setBranchId(Integer branchId) {
         this.branchId = branchId;
     }
 
-    public String getBranchName() {
-        return branchName;
+    public String getReviewedBy() {
+        return reviewedBy;
     }
 
-    public void setBranchName(String branchName) {
-        this.branchName = branchName;
-    }
-
-    public String getSolId() {
-        return solId;
-    }
-
-    public void setSolId(String solId) {
-        this.solId = solId;
-    }
-
-    public String getSection() {
-        return section;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getSubItem() {
-        return subItem;
-    }
-
-    public void setSubItem(String subItem) {
-        this.subItem = subItem;
+    public void setReviewedBy(String reviewedBy) {
+        this.reviewedBy = reviewedBy;
     }
 
     public String getRemarks() {
@@ -91,19 +65,11 @@ public class Review {
         this.remarks = remarks;
     }
 
-    public String getPhotoBase64() {
-        return photoBase64;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPhotoBase64(String photoBase64) {
-        this.photoBase64 = photoBase64;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

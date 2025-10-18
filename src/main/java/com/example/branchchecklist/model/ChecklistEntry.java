@@ -1,27 +1,43 @@
 package com.example.branchchecklist.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import jakarta.persistence.*;
 import java.time.Instant;
 
-@Document("checklist_entries")
+@Entity
+@Table(name = "checklist_entries")
 public class ChecklistEntry {
+
     @Id
+    @Column(length = 50)
     private String id;
-    private String mobileEncrypted; // AES encrypted
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String mobileEncrypted;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String branchIdEncrypted;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String branchNameEncrypted;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String solIdEncrypted;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String sectionEncrypted;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String itemEncrypted;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String remarksEncrypted;
-    private String imageEncrypted; // encrypted base64 string
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String imageEncrypted;
+
     private Instant createdAt;
 
-    public ChecklistEntry() {}
-
-    // getters and setters
+    // Getters & Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 

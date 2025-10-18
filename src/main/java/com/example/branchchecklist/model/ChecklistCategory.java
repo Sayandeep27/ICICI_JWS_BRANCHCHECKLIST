@@ -1,27 +1,22 @@
 package com.example.branchchecklist.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 import java.util.List;
 
-@Document("checklist_categories")
+@Entity
+@Table(name = "checklist_categories")
 public class ChecklistCategory {
+
     @Id
+    @Column(length = 50)
     private String id;
-    private String section; // Outside, Inside, ATM Lobby
+
+    private String section;
+
+    @OneToMany(mappedBy = "checklistCategory", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Category> categories;
 
-    public static class Category {
-        private String title;
-        private List<String> subItems;
-
-        public String getTitle() { return title; }
-        public void setTitle(String title) { this.title = title; }
-
-        public List<String> getSubItems() { return subItems; }
-        public void setSubItems(List<String> subItems) { this.subItems = subItems; }
-    }
-
+    // Getters & Setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 

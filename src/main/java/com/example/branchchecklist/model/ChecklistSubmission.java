@@ -1,26 +1,49 @@
 package com.example.branchchecklist.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import jakarta.persistence.*;
 import java.util.List;
 
-@Document(collection = "checklist_submissions")
+@Entity
+@Table(name = "checklist_submissions")
 public class ChecklistSubmission {
 
     @Id
+    @Column(length = 50)
     private String id;
+
+    @Column(name = "branch_id")
     private String branchId;
-    private String sectionName; // e.g. Outside, Inside, ATM Lobby
+
+    @Column(name = "section_name")
+    private String sectionName; // e.g., Outside, Inside, ATM Lobby
+
+    @OneToMany(mappedBy = "checklistSubmission", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items;
 
+    // ===== Inner Class as JPA Entity =====
+    @Entity
+    @Table(name = "checklist_items")
     public static class Item {
-        private String title;
-        private String status; // e.g. OK, Needs Improvement
-        private String reviewText;
-        private String imageBase64; // uploaded image (Base64 encoded)
 
-        // Getters and Setters
+        @Id
+        @Column(length = 50)
+        private String id;
+
+        private String title;
+        private String status;
+        private String reviewText;
+
+        @Column(columnDefinition = "NVARCHAR(MAX)")
+        private String imageBase64;
+
+        @ManyToOne
+        @JoinColumn(name = "checklist_submission_id")
+        private ChecklistSubmission checklistSubmission;
+
+        // Getters & Setters
+        public String getId() { return id; }
+        public void setId(String id) { this.id = id; }
+
         public String getTitle() { return title; }
         public void setTitle(String title) { this.title = title; }
 
@@ -32,9 +55,12 @@ public class ChecklistSubmission {
 
         public String getImageBase64() { return imageBase64; }
         public void setImageBase64(String imageBase64) { this.imageBase64 = imageBase64; }
+
+        public ChecklistSubmission getChecklistSubmission() { return checklistSubmission; }
+        public void setChecklistSubmission(ChecklistSubmission checklistSubmission) { this.checklistSubmission = checklistSubmission; }
     }
 
-    // Getters and Setters
+    // ===== Getters & Setters =====
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 

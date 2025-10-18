@@ -1,9 +1,9 @@
 package com.example.branchchecklist.repository;
 
 import com.example.branchchecklist.model.Review;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
-public interface ReviewRepository extends MongoRepository<Review, String> {
-    List<Review> findByBranchId(String branchId);
+public interface ReviewRepository extends JpaRepository<Review, Integer> {
+    Optional<Review> findByBranchId(Integer branchId); // ✅ Integer
 }
