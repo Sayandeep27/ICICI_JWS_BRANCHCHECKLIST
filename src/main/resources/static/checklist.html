@@ -13,18 +13,22 @@
     <select id="sectionDropdown" onchange="loadCategories()"></select>
 
     <label for="categoryDropdown">Select Category:</label>
-    <select id="categoryDropdown"></select>
+    <select id="categoryDropdown" onchange="loadSubItems()"></select>
+
+    <label for="subItemDropdown">Select Sub Item:</label>
+    <select id="subItemDropdown"></select>
 
     <button onclick="showReviewPopup()">Needs Improvement</button>
 
+    <!-- Review Popup -->
     <div id="reviewPopup" class="popup hidden">
       <textarea id="remarks" placeholder="Enter remarks here..."></textarea><br>
-      <input type="file" id="photoUpload" accept="image/*"><br>
+      <input type="file" id="photoUpload" accept="image/*"><br><br>
       <button onclick="submitReview()">Submit Review</button>
       <button onclick="closePopup()">Cancel</button>
     </div>
   </div>
-
+  
   <script src="js/checklist.js"></script>
 </body>
 </html>
