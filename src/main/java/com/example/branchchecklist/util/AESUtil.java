@@ -18,7 +18,7 @@ public class AESUtil {
 
     private byte[] key;
 
-    private static final int IV_SIZE = 12; // GCM IV size
+    private static final int IV_SIZE = 12; // GCM nonce
     private static final int TAG_LENGTH_BIT = 128;
 
     @PostConstruct
@@ -29,8 +29,7 @@ public class AESUtil {
     public String encrypt(String plain) throws Exception {
         if (plain == null) plain = "";
         byte[] iv = new byte[IV_SIZE];
-        SecureRandom rnd = new SecureRandom();
-        rnd.nextBytes(iv);
+        new SecureRandom().nextBytes(iv);
 
         Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
         SecretKeySpec keySpec = new SecretKeySpec(key, "AES");
@@ -49,9 +48,8 @@ public class AESUtil {
         byte[] decoded = Base64.getDecoder().decode(cipherText);
         byte[] iv = new byte[IV_SIZE];
         System.arraycopy(decoded, 0, iv, 0, IV_SIZE);
-        int encLen = decoded.length - IV_SIZE;
-        byte[] encrypted = new byte[encLen];
-        System.arraycopy(decoded, IV_SIZE, encrypted, 0, encLen);
+        byte[] encrypted = new byte[decoded.length - IV_SIZE];
+        System.arraycopy(decoded, IV_SIZE, encrypted, 0, encrypted.length);
 
         Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
         SecretKeySpec keySpec = new SecretKeySpec(key, "AES");

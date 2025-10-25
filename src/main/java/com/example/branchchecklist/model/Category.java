@@ -22,16 +22,13 @@ public class Category {
     @Column(name = "subitem_text")
     private List<String> subItems;
 
-    // Getters & Setters
+    // Getters & Setters...
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
-
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
-
     public ChecklistCategory getChecklistCategory() { return checklistCategory; }
     public void setChecklistCategory(ChecklistCategory checklistCategory) { this.checklistCategory = checklistCategory; }
-
     public List<String> getSubItems() { return subItems; }
     public void setSubItems(List<String> subItems) { this.subItems = subItems; }
 }

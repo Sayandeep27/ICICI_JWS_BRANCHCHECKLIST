@@ -17,7 +17,7 @@ async function loadBranches() {
 }
 
 function updateSolId() {
-  const selectedId = document.getElementById("branchDropdown").value;
+  const selectedId = parseInt(document.getElementById("branchDropdown").value);
   const branch = branches.find(b => b.id === selectedId);
   document.getElementById("solId").value = branch ? branch.solId : "";
 }

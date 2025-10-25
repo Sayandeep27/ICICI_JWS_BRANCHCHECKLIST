@@ -1,11 +1,11 @@
 package com.example.branchchecklist.controller;
 
 import com.example.branchchecklist.model.ChecklistCategory;
+import com.example.branchchecklist.dto.ChecklistResponseDto;
 import com.example.branchchecklist.model.Review;
 import com.example.branchchecklist.service.ChecklistService;
 import com.example.branchchecklist.service.ReviewService;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/checklist")
@@ -20,9 +20,9 @@ public class ChecklistController {
     }
 
     @GetMapping("/{section}")
-    public ChecklistCategory getChecklist(@PathVariable String section) {
-        return checklistService.getChecklistBySection(section);
-    }
+    public ChecklistResponseDto getChecklist(@PathVariable String section) {
+    return checklistService.getChecklistData(section);
+   }
 
     @PostMapping("/review")
     public Review submitReview(@RequestBody Review review) {

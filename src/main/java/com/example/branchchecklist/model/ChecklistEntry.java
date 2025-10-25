@@ -37,34 +37,25 @@ public class ChecklistEntry {
 
     private Instant createdAt;
 
-    // Getters & Setters
+    // getters/setters
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
-
     public String getMobileEncrypted() { return mobileEncrypted; }
     public void setMobileEncrypted(String mobileEncrypted) { this.mobileEncrypted = mobileEncrypted; }
-
     public String getBranchIdEncrypted() { return branchIdEncrypted; }
     public void setBranchIdEncrypted(String branchIdEncrypted) { this.branchIdEncrypted = branchIdEncrypted; }
-
     public String getBranchNameEncrypted() { return branchNameEncrypted; }
     public void setBranchNameEncrypted(String branchNameEncrypted) { this.branchNameEncrypted = branchNameEncrypted; }
-
     public String getSolIdEncrypted() { return solIdEncrypted; }
     public void setSolIdEncrypted(String solIdEncrypted) { this.solIdEncrypted = solIdEncrypted; }
-
     public String getSectionEncrypted() { return sectionEncrypted; }
     public void setSectionEncrypted(String sectionEncrypted) { this.sectionEncrypted = sectionEncrypted; }
-
     public String getItemEncrypted() { return itemEncrypted; }
     public void setItemEncrypted(String itemEncrypted) { this.itemEncrypted = itemEncrypted; }
-
     public String getRemarksEncrypted() { return remarksEncrypted; }
     public void setRemarksEncrypted(String remarksEncrypted) { this.remarksEncrypted = remarksEncrypted; }
-
     public String getImageEncrypted() { return imageEncrypted; }
     public void setImageEncrypted(String imageEncrypted) { this.imageEncrypted = imageEncrypted; }
-
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 }

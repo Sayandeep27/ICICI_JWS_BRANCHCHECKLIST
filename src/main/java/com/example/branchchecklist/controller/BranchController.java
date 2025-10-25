@@ -15,44 +15,29 @@ public class BranchController {
 
     private final BranchService branchService;
 
-    public BranchController(BranchService branchService) {
-        this.branchService = branchService;
-    }
+    public BranchController(BranchService branchService) { this.branchService = branchService; }
 
-    // Page that lists branches (used by UI)
     @GetMapping("/branch")
     public String branchPage(@RequestParam(required = false) String token, Model model) {
         List<Branch> branches = branchService.getAll();
-        System.out.println("Branches: " + branches);
         model.addAttribute("branches", branches);
         model.addAttribute("token", token);
         return "branch";
     }
 
-    // API: Get all branches
     @GetMapping("/api/branches")
     @ResponseBody
-    public List<Branch> getAllBranches() {
-        return branchService.getAll();
-    }
+    public List<Branch> getAllBranches() { return branchService.getAll(); }
 
-    // API: Get branch by ID
     @GetMapping("/api/branch/{id}")
     @ResponseBody
-    public Branch getBranch(@PathVariable String id) {
-        return branchService.getById(id);
-    }
+    public Branch getBranch(@PathVariable Long id) { return branchService.getById(id); }
 
-    // ✅ NEW API: Get solId by branchName (for auto-filling in UI)
     @GetMapping("/api/branches/sol/{branchName}")
     @ResponseBody
     public ResponseEntity<?> getSolIdByBranchName(@PathVariable String branchName) {
         Branch branch = branchService.getByBranchName(branchName);
-        if (branch != null) {
-            return ResponseEntity.ok(branch.getSolId());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Branch not found for name: " + branchName);
-        }
+        if (branch != null) return ResponseEntity.ok(branch.getSolId());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Branch not found for name: " + branchName);
     }
 }

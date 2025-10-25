@@ -1,6 +1,7 @@
 package com.example.branchchecklist.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -8,21 +9,19 @@ import java.util.List;
 public class ChecklistCategory {
 
     @Id
-    @Column(length = 50)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String section;
+    @Column(nullable = false)
+    private String section; // Outside | Inside | ATM Lobby
 
-    @OneToMany(mappedBy = "checklistCategory", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Category> categories;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChecklistCategoryItem> categories = new ArrayList<>();
 
-    // Getters & Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
     public String getSection() { return section; }
     public void setSection(String section) { this.section = section; }
-
-    public List<Category> getCategories() { return categories; }
-    public void setCategories(List<Category> categories) { this.categories = categories; }
+    public List<ChecklistCategoryItem> getCategories() { return categories; }
+    public void setCategories(List<ChecklistCategoryItem> categories) { this.categories = categories; }
 }

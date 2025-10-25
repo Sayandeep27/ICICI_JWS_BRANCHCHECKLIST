@@ -2,11 +2,14 @@ package com.example.branchchecklist;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.WebApplicationType;
 
 @SpringBootApplication
 public class BranchChecklistApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BranchChecklistApplication.class, args);
-        System.out.println("✅ Branch Checklist Application running on http://localhost:8080");
+        SpringApplication app = new SpringApplication(BranchChecklistApplication.class);
+        app.setWebApplicationType(WebApplicationType.SERVLET);
+        app.run(args);
+        System.out.println("✅ Branch Checklist running at http://localhost:8080");
     }
 }

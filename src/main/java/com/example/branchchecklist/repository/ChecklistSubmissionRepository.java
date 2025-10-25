@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface ChecklistSubmissionRepository extends JpaRepository<ChecklistSubmission, String> {
-    Optional<ChecklistSubmission> findByBranchId(String branchId);
+public interface ChecklistSubmissionRepository extends JpaRepository<ChecklistSubmission, Long> {
+    Optional<ChecklistSubmission> findByBranchId(Long branchId);
 }

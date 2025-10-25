@@ -1,75 +1,56 @@
 package com.example.branchchecklist.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "review")
+@Table(name = "reviews")
 public class Review {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "BranchId")
-    private Integer branchId;  // ✅ Integer, not String
+    @Column(name="branch_id", nullable=false)
+    private Long branchId;
 
-    @Column(name = "ReviewedBy")
-    private String reviewedBy;
+    @Column(name="branch_name")
+    private String branchName;
 
-    @Column(name = "Remarks")
+    @Column(name="sol_id")
+    private String solId;
+
+    private String section;
+    private String category;
+
+    @Column(name="sub_item")
+    private String subItem;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String remarks;
 
-    @Column(name = "Status")
-    private String status;
+    @Column(name="photo_base64", columnDefinition = "NVARCHAR(MAX)")
+    private String photoBase64;
 
-    public Review() {}
+    @Column(name="created_at", nullable=false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    // Constructor
-    public Review(Integer branchId, String reviewedBy, String remarks, String status) {
-        this.branchId = branchId;
-        this.reviewedBy = reviewedBy;
-        this.remarks = remarks;
-        this.status = status;
-    }
-
-    // Getters & Setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(Integer branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getReviewedBy() {
-        return reviewedBy;
-    }
-
-    public void setReviewedBy(String reviewedBy) {
-        this.reviewedBy = reviewedBy;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public Long getId() { return id; }
+    public Long getBranchId() { return branchId; }
+    public void setBranchId(Long branchId) { this.branchId = branchId; }
+    public String getBranchName() { return branchName; }
+    public void setBranchName(String branchName) { this.branchName = branchName; }
+    public String getSolId() { return solId; }
+    public void setSolId(String solId) { this.solId = solId; }
+    public String getSection() { return section; }
+    public void setSection(String section) { this.section = section; }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
+    public String getSubItem() { return subItem; }
+    public void setSubItem(String subItem) { this.subItem = subItem; }
+    public String getRemarks() { return remarks; }
+    public void setRemarks(String remarks) { this.remarks = remarks; }
+    public String getPhotoBase64() { return photoBase64; }
+    public void setPhotoBase64(String photoBase64) { this.photoBase64 = photoBase64; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
