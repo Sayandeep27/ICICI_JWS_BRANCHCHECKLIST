@@ -1,27 +1,37 @@
 package com.example.branchchecklist.controller;
 
-import com.example.branchchecklist.dto.AuthRequest;
-import com.example.branchchecklist.dto.AuthResponse;
 import com.example.branchchecklist.service.JwtService;
 import com.example.branchchecklist.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final JwtService jwtService;
-    private final UserService userService;
+    @Autowired
+    private JwtService jwtService;
 
-    public AuthController(JwtService jwtService, UserService userService) {
-        this.jwtService = jwtService;
-        this.userService = userService;
-    }
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/token")
-    public AuthResponse getToken(@RequestBody AuthRequest request) {
-        userService.createIfNotExists(request.getMobile());
-        String token = jwtService.generateToken(request.getMobile());
-        return new AuthResponse(token);
+    public ResponseEntity<?> generateToken(@RequestBody Map<String, String> body) {
+        String mobile = body.get("mobile");
+
+        if (mobile == null || mobile.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Mobile number is required");
+        }
+
+        // ✅ Ensure user exists (creates if not found)
+        userService.createIfNotExists(mobile);
+
+        // ✅ Generate a signed JWT (JWS)
+        String token = jwtService.generateToken(mobile);
+
+        return ResponseEntity.ok(Map.of("token", token));
     }
 }
