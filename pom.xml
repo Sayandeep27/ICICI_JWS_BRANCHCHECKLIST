@@ -10,6 +10,7 @@
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
+  <!-- Spring Boot parent -->
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -18,7 +19,7 @@
   </parent>
 
   <!-- ===================================================== -->
-  <!--  Compile with Java 23 compatibility while using JDK 25 -->
+  <!--   Java Compatibility (compile as Java 23, use JDK 25)  -->
   <!-- ===================================================== -->
   <properties>
     <java.version>23</java.version>
@@ -28,8 +29,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+  <!-- ===================================================== -->
+  <!--                   DEPENDENCIES                        -->
+  <!-- ===================================================== -->
   <dependencies>
-    <!-- Core Spring Boot -->
+
+    <!-- Spring Boot Starters -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -76,14 +81,32 @@
       <scope>runtime</scope>
     </dependency>
 
-    <!-- Testing -->
+    <!-- Nimbus for JWK/JWKS -->
+    <dependency>
+      <groupId>com.nimbusds</groupId>
+      <artifactId>nimbus-jose-jwt</artifactId>
+      <version>9.40</version>
+    </dependency>
+
+    <!-- Jackson (for JSON serialization, pretty JWKS) -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.17.2</version>
+    </dependency>
+
+    <!-- Spring Boot Test -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
+  <!-- ===================================================== -->
+  <!--                        BUILD                          -->
+  <!-- ===================================================== -->
   <build>
     <plugins>
 
@@ -111,7 +134,7 @@
         </configuration>
       </plugin>
 
-      <!-- Ensure at least JDK 25 is installed (compile as 23-compatible) -->
+      <!-- Enforce Java Version -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
@@ -132,6 +155,16 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+
+      <!-- ✅ Exec Plugin (for running utilities like JwkGenerator) -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <mainClass>com.example.branchchecklist.util.JwkGenerator</mainClass>
+        </configuration>
       </plugin>
 
     </plugins>
